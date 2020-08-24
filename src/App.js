@@ -10,12 +10,7 @@ import UnGatedRoute from "./components/UnGatedRoute/UnGatedRoute";
 import GatedRoute from "./components/GatedRoute/GatedRoute";
 import styled from "styled-components";
 import NavBar from "./components/NavBar/NavBar";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  NavLink,
-} from "react-router-dom";
+import { HashRouter as Router, Route, Switch, NavLink } from "react-router-dom";
 const AddressBook = styled.section`
   display: flex;
   justify-content: center;
@@ -28,9 +23,11 @@ const AddressBook = styled.section`
   }
 `;
 function App() {
+  const routePath = (path) => path;
+  // https://github.com/facebook/create-react-app/issues/1765
   return (
     <AddressBook>
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <NavBar />
         <Switch>
           <UnGatedRoute
@@ -60,3 +57,7 @@ function App() {
 }
 
 export default App;
+
+// Important URLs to refer:
+// Router issues on production: 404 / GH-Pages
+// https://github.com/facebook/create-react-app/issues/1765
